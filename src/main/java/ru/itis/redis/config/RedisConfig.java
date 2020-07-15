@@ -1,6 +1,7 @@
 package ru.itis.redis.config;
 
 import org.redisson.Redisson;
+import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,11 @@ public class RedisConfig {
         Config config = new Config();
         config.useSingleServer().setAddress(redisUrl);
         return Redisson.create(config);
+    }
+
+    @Bean
+    @Qualifier("visitsBucket")
+    public RBucket<Integer> visitsBucket(@Autowired RedissonClient redisClient) {
+        return redisClient.getBucket("VISIT_COUNT");
     }
 }

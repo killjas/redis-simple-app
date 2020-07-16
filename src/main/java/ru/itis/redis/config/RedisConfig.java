@@ -11,9 +11,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RedisConfig {
-    @Bean
-    @Qualifier("redisUrl")
-    public String redisPort() {
+    @Bean("redisUrl")
+    public String redisUrl() {
         return System.getenv("REDIS_URL");
     }
 
@@ -24,8 +23,7 @@ public class RedisConfig {
         return Redisson.create(config);
     }
 
-    @Bean
-    @Qualifier("visitsBucket")
+    @Bean("visitsBucket")
     public RBucket<Integer> visitsBucket(@Autowired RedissonClient redisClient) {
         return redisClient.getBucket("VISIT_COUNT");
     }

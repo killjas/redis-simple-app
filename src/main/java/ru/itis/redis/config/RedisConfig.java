@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class RedisConfig {
     @Bean("redisUrl")
     public String redisUrl() {
-        return "redis://redis:6379/";
+        return System.getenv("REDIS_URL");
     }
 
     @Bean
